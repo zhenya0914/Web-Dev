@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToDo List</title>
+<style>
+    body {
+        text-align: center;
+    }
+    button {
+        cursor: pointer;
+    }
+    .no-decoration{
+        text-decoration: none !important;
+    }
+    .checked {
+        text-decoration: line-through;
+    }
+    li {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 300px;
+        height: 35px;
+        border: 2px solid;
+        padding: 5px;
+    }
+    
+</style>
+</head>
+<body>
+
+<h2>ToDo List</h2>
+<input type="text" id="todoInput" placeholder="Enter task">
+<button onclick="addTodo()">Add</button>
+
+<ul id="todoList">
+</ul>
+
+<script>
+function addTodo() {
+    var input = document.getElementById("todoInput").value;
+    if (input === '') {
+        alert("Введите задачу!");
+        return;
+    }
+    
+    var li = document.createElement("li");
+    var text = document.createTextNode(input);
+    li.appendChild(text);
+    
+    var deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.classList.add("no-decoration")
+    deleteButton.onclick = function() {
+        var listItem = this.parentElement;
+        listItem.parentNode.removeChild(listItem);
+    };
+    li.appendChild(deleteButton);
+    
+    var doneButton = document.createElement("button");
+    doneButton.innerHTML = "Done";
+    doneButton.classList.add("no-decoration")
+    doneButton.onclick = function() {
+        li.classList.toggle("checked");
+    };
+    li.appendChild(doneButton);
+    
+    document.getElementById("todoList").appendChild(li);
+    document.getElementById("todoInput").value = "";
+}
+
+</script>
+
+</body>
+</html>
